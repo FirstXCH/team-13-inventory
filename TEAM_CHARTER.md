@@ -6,6 +6,7 @@
 |---|---|---|
 | กานต์นิธิ ยะโส  | FirstXCH             | Product Owner / Developer |
 | ธนวัฒน์ นามเหง้า  | tanawatnm             | Scrum Master / Developer |
+| ณปวร เกิดคำ  | ...             |  Developer |
 
 
 ## Branching Strategy
