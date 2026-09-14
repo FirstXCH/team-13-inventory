@@ -101,3 +101,88 @@ sequenceDiagram
     Note over Service, Dig: ไม่มีการตัดสต็อก (No Stock Deduction)
     Service-->>Client: ส่งคืนลิงก์ดาวน์โหลดไฟล์ (Download URL Unlocked)
 ```
+
+
+---
+
+## ?? ??????????????????????? PlantUML (`.puml`)
+* **Class Diagram PlantUML:** [`diagrams/class.puml`](diagrams/class.puml)
+* **Sequence Diagram PlantUML:** [`diagrams/sequence.puml`](diagrams/sequence.puml)
+
+```plantuml
+@startuml ClassDiagram_InventorySystem
+title ???????????????????? (Smart Inventory Management System - Team 13)\n???????????? 2 ???? (Physical Goods & Digital Goods) ?????????????????????? SOLID
+
+skinparam classAttributeIconSize 0
+skinparam monochrome false
+skinparam shadowing true
+skinparam packageStyle rectangle
+
+interface Notifier {
+    +send(message: str): None
+}
+
+class EmailNotifier implements Notifier {
+    +send(message: str): None
+}
+
+class SMSNotifier implements Notifier {
+    +send(message: str): None
+}
+
+class NotifierFactory {
+    +{static} create(channel: str): Notifier
+}
+
+abstract class Product {
+    +id: str
+    +name: str
+    +price: float
+    +category: str
+    +is_active: bool
+}
+
+class PhysicalProduct extends Product {
+    +stock: int
+    +threshold: int
+    +deduct_stock(quantity: int): bool
+    +is_low_stock(): bool
+}
+
+class DigitalProduct extends Product {
+    +file_url: str
+    +file_format: str
+    +can_access_download(order_status: str): bool
+}
+
+class InventoryService {
+    +products: dict
+    -_observers: list<Notifier>
+    +add_observer(observer: Notifier): None
+    +add_product(product: Product): None
+    +sell_product(product_id: str, quantity: int, order_status: str): dict
+    +get_stock_value(): float
+    -_notify(message: str): None
+}
+
+NotifierFactory ..> Notifier : creates
+InventoryService o-- Notifier : observer pattern
+InventoryService o-- Product : manages
+
+note bottom of PhysicalProduct
+  <b>Physical Goods</b>
+  - ????????????????
+  - ????????????????????? threshold
+  - ???????????????? (ValueError)
+end note
+
+note bottom of DigitalProduct
+  <b>Digital Goods (E-Book)</b>
+  - ????????????? (Zero Physical Stock)
+  - ???????????????? (Access Control)
+  - ??????????????????? status = 'Confirmed'
+end note
+
+@enduml
+
+```
