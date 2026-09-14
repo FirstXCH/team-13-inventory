@@ -32,5 +32,5 @@
 | ศึกษาการใช้งานไลบรารีเพิ่มเติมเพื่อลดเวลาในการเขียนโค้ดลอจิก | KANNITI YASO (FirstXCH) |
 
 ---
-### ![alt text](image.png)
+### ![alt text](docs/images/sprint_board.png)
 
