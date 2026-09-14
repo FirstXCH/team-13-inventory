@@ -3,3 +3,7 @@ __pycache__/
 *.class
 .pytest_cache/
 .env
+
+# Presentation Scripts (Local only)
+*º·¾Ù´*
+
