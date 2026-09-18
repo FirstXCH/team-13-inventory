@@ -1,4 +1,4 @@
-# 📦 Smart Inventory & E-Book Management System (Team 13)
+﻿# 📦 Smart Inventory & E-Book Management System (Team 13)
 
 [![SWE Inventory CI](https://github.com/FirstXCH/team-13-inventory/actions/workflows/ci.yml/badge.svg)](https://github.com/FirstXCH/team-13-inventory/actions)
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
@@ -21,29 +21,71 @@
 
 ---
 
-## 📖 คู่มือการอ่านทำความเข้าใจและเตรียมสอบ (Step-by-Step Study Guide)
+## 🗺️ แผนผังเอกสารส่งตรวจประเมินตามเกณฑ์ (Deliverables Map)
 
-เพื่อให้เข้าใจโครงงานอย่างครบถ้วนตามขั้นตอนวิศวกรรมซอฟต์แวร์ (Software Engineering Lifecycle) สามารถศึกษาเรียงตามขั้นตอน 8 ขั้นตอน ดังนี้:
+เพื่อให้ผู้สอนสามารถตรวจประเมินตามเกณฑ์ 20 คะแนนได้อย่างสะดวก รวดเร็ว และเป็นระบบ:
 
-| ขั้นตอน (Step) | เอกสารหลัก | รายละเอียดเนื้อหา | วัตถุประสงค์เพื่อการนำเสนอ |
+| หมวดหมู่การประเมิน | เอกสารทางการใน Repository | สาระสำคัญ |
+|---|---|---|
+| **1. Spec & User Story (4 คะแนน)** | [`specs/spec.md`](specs/spec.md) | ขอบเขตระบบ, User Stories, และ Acceptance Criteria (Given-When-Then) |
+| **2. Software Diagrams (4 คะแนน)** | [`diagrams/class.md`](diagrams/class.md)<br>[`diagrams/sequence.md`](diagrams/sequence.md) | Class Diagram และ Sequence Diagram (ไม่มีการส่ง ERD แทน Class Diagram) |
+| **3. งานฝั่งผู้ใช้ UX (3 คะแนน)** | [`docs/ux/persona.md`](docs/ux/persona.md)<br>[`docs/ux/accessibility.md`](docs/ux/accessibility.md) | Persona ผู้ใช้ และผลตรวจ Accessibility พร้อมจุดแก้เป็นข้อๆ (WCAG 2.1 AA) |
+| **4. Automated Test & CI (4 คะแนน)** | [`tests/test_inventory.py`](tests/test_inventory.py)<br>[`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Unit Test รันผ่านจริง 6 เคส (100%) และ GitHub Actions CI รันบน Pull Request |
+| **5. บันทึก AI & จริยธรรม (3 คะแนน)** | [`docs/team/AI_ITERATION_LOG.md`](docs/team/AI_ITERATION_LOG.md) | บันทึก Prompt, จุดที่ปฏิเสธข้อเสนอ AI พร้อมเหตุผล, และประเด็น PDPA |
+| **6. โค้ดระบบหลัก** | [`src/models.py`](src/models.py)<br>[`src/service.py`](src/service.py)<br>[`src/notifiers.py`](src/notifiers.py) | รองรับสินค้า 2 ชนิด (Physical ตัดสต็อก vs Digital ล็อกดาวน์โหลด) ตามหลัก Clean Architecture |
+
+<details>
+<summary><b>📖 คู่มือการเตรียมตัวสอบและทบทวนเนื้อหาแบบ Step-by-Step (Local Study Guide)</b> <i>[คลิกเพื่อขยาย]</i></summary>
+
+> *หมายเหตุ: ไฟล์ `STEP_01` ถึง `STEP_08` เป็นคู่มือเตรียมตัวสอบส่วนบุคคล จัดเก็บไว้ใช้งานในเครื่อง (Local)*
+
+| ขั้นตอน (Step) | เอกสารและหัวข้อ | รายละเอียดเนื้อหา | วัตถุประสงค์เพื่อการนำเสนอ |
 |:---:|---|---|---|
-| **STEP 01** | [**STEP_01: ภาพรวมโครงการและสถาปัตยกรรม**](STEP_01_ภาพรวมโครงการและสถาปัตยกรรม_PROJECT.md) | ที่มา ปัญหา ขอบเขตระบบ Clean Architecture และ 3-Tier Layer | อธิบายภาพรวม Business Domain และ High-Level Architecture |
-| **STEP 02** | [**STEP_02: ข้อกำหนดความต้องการระบบ (SRS)**](STEP_02_ข้อกำหนดความต้องการระบบ_SRS.md) | Functional Requirements, Non-Functional, User Stories & Acceptance Criteria | ชี้แจงขอบเขตฟังก์ชันระบบและการวัดผลคุณภาพ |
-| **STEP 03** | [**STEP_03: การออกแบบคลาสและโมเดล (Class Diagram)**](STEP_03_การออกแบบคลาสไดอะแกรม_CLASS_DIAGRAM.md) | UML Class Diagram, Sequence Diagram, Design Patterns (Observer, Strategy) | ตอบคำถามเรื่อง OOP, Polymorphism และการขยายระบบ |
-| **STEP 04** | [**STEP_04: โครงสร้างโค้ดและการแยกเลเยอร์**](STEP_04_โครงสร้างโค้ดระบบ_SRC_CODE.md) | โค้ดใน src/ (models.py, service.py, 
-otifiers.py), Separation of Concerns | อธิบายหลักการเขียนโค้ด การแยกหน้าที่ และ Dependency Inversion |
-| **STEP 05** | [**STEP_05: การทดสอบระบบอัตโนมัติ (Tests)**](STEP_05_การทดสอบอัตโนมัติ_AUTOMATED_TESTS.md) | ชุดทดสอบ Pytest 6 กรณีทดสอบ (Boundary, Negative, Business Logic) ผ่าน 100% | สาธิตการทำ Automated Unit Testing และ CI/CD Pipeline |
-| **STEP 06** | [**STEP_06: การออกแบบ UX และการเข้าถึง**](STEP_06_การออกแบบUXและการเข้าถึง_UX_ACCESSIBILITY.md) | Personas, User Journey, มาตรฐานการเข้าถึง WCAG 2.1 AA, Contrast Ratio | แสดงถึงความเข้าใจกลุ่มผู้ใช้งานและการออกแบบ Inclusive Design |
-| **STEP 07** | [**STEP_07: บันทึกการใช้ AI และรีวิวระบบ**](STEP_07_บันทึกการใช้AIและรีวิวระบบ_AI_LOG_REVIEW.md) | Responsible AI Usage, AI Iteration Logs, Security Prompting & Guardrails | ตอบคำถามเรื่องการใช้ AI อย่างรับผิดชอบและตรวจสอบโค้ด |
-| **STEP 08** | [**STEP_08: สรุปผลการทำงานเป็นทีมและสปรินต์**](STEP_08_สรุปผลการทำงานเป็นทีมและสปรินต์_RETRO_SPRINT.md) | Agile Scrum, Sprint Retrospective 1, Burn-down Chart, Action Items | สรุปผลการจัดการโครงงานและการปรับปรุงกระบวนการพัฒนา |
+| **STEP 01** | ภาพรวมโครงการและสถาปัตยกรรม | ที่มา ปัญหา ขอบเขตระบบ Clean Architecture และ 3-Tier Layer | อธิบายภาพรวม Business Domain และ High-Level Architecture |
+| **STEP 02** | ข้อกำหนดความต้องการระบบ (SRS) | Functional Requirements, Non-Functional, User Stories & Acceptance Criteria | ชี้แจงขอบเขตฟังก์ชันระบบและการวัดผลคุณภาพ |
+| **STEP 03** | การออกแบบคลาสและโมเดล | UML Class Diagram, Sequence Diagram, Design Patterns (Observer, Strategy) | ตอบคำถามเรื่อง OOP, Polymorphism และการขยายระบบ |
+| **STEP 04** | โครงสร้างโค้ดและการแยกเลเยอร์ | โค้ดใน `src/` (`models.py`, `service.py`, `notifiers.py`), Separation of Concerns | อธิบายหลักการเขียนโค้ด การแยกหน้าที่ และ Dependency Inversion |
+| **STEP 05** | การทดสอบระบบอัตโนมัติ | ชุดทดสอบ Pytest 6 กรณีทดสอบ (Boundary, Negative, Business Logic) ผ่าน 100% | สาธิตการทำ Automated Unit Testing และ CI/CD Pipeline |
+| **STEP 06** | การออกแบบ UX และการเข้าถึง | Personas, User Journey, มาตรฐานการเข้าถึง WCAG 2.1 AA, Contrast Ratio | แสดงถึงความเข้าใจกลุ่มผู้ใช้งานและการออกแบบ Inclusive Design |
+| **STEP 07** | บันทึกการใช้ AI และรีวิวระบบ | Responsible AI Usage, AI Iteration Logs, Security Prompting & Guardrails | ตอบคำถามเรื่องการใช้ AI อย่างรับผิดชอบและตรวจสอบโค้ด |
+| **STEP 08** | สรุปผลการทำงานเป็นทีมและสปรินต์ | Agile Scrum, Sprint Retrospective 1, Burn-down Chart, Action Items | สรุปผลการจัดการโครงงานและการปรับปรุงกระบวนการพัฒนา |
+
+</details>
 
 ---
 
-## 🏗️ สถาปัตยกรรมระบบและกฎทางธุรกิจ (Architecture & Business Logic)
+## 🏛️ สถาปัตยกรรมระบบและกฎทางธุรกิจ (Architecture & Business Logic)
 
 ระบบ Inventory นี้ได้รับการออกแบบเชิงวัตถุ (Object-Oriented Design) เพื่อรองรับสินค้า 2 ประเภทที่มีกฎทางธุรกิจต่างกันโดยสิ้นเชิง:
 
-`
+```mermaid
+classDiagram
+    direction TB
+    class Product {
+        <<Abstract>>
+        +str id
+        +str name
+        +float price
+        +str category
+        +bool is_active
+    }
+    class PhysicalProduct {
+        +int stock
+        +int threshold
+        +deduct_stock(quantity: int) bool
+        +is_low_stock() bool
+    }
+    class DigitalProduct {
+        +str file_url
+        +str file_format
+        +can_access_download(order_status: str) bool
+    }
+
+    Product <|-- PhysicalProduct : สืบทอด (Physical Goods: ห้ามขายเกินสต็อก / แจ้งเตือน Low Stock)
+    Product <|-- DigitalProduct : สืบทอด (Digital Goods: สินค้าดิจิทัล / ล็อกสิทธิ์จนกว่าจะ Confirm)
+```
+
+```text
                       +-------------------+
                       |   Base Product    |
                       |  (Abstract Class) |
@@ -61,16 +103,16 @@ otifiers.py), Separation of Concerns | อธิบายหลักการ�
       | * ตรวจสอบ LowStock|             | * ล็อกลิงก์จนกว่า |
       | * ห้ามขายเกินสต็อก |             |   จะชำระเงินจริง  |
       +-------------------+             +-------------------+
-`
+```
 
 ### 1. สินค้าทางกายภาพ (Physical Goods: หนังสือรูปเล่ม)
-* **การตัดสต็อก:** ทุกครั้งที่มีการสั่งซื้อ ระบบจะลดค่า stock ตามจำนวนที่ซื้อ
-* **Validation:** หากจำนวนสั่งซื้อมากกว่าสต็อกคงเหลือ ระบบจะโยน ValueError('ยอดสต็อกไม่เพียงพอ')
-* **Low Stock Observer:** เมื่อยอดคงเหลือต่ำกว่าหรือเท่ากับ 	hreshold ระบบจะส่งสัญญาณเตือนไปยัง InventoryNotifier ทันที
+* **การตัดสต็อก:** ทุกครั้งที่มีการสั่งซื้อ ระบบจะลดค่า `stock` ตามจำนวนที่ซื้อ
+* **Validation:** หากจำนวนสั่งซื้อมากกว่าสต็อกคงเหลือ ระบบจะโยน `ValueError('ยอดสต็อกไม่เพียงพอ')`
+* **Low Stock Observer:** เมื่อยอดคงเหลือต่ำกว่าหรือเท่ากับ `threshold` ระบบจะส่งสัญญาณเตือนไปยัง `InventoryNotifier` ทันที
 
 ### 2. สินค้าดิจิทัล (Digital Goods: อีบุ๊ก/ไฟล์ PDF)
-* **Zero Physical Stock:** สินค้าประเภทนี้ไม่มีวันหมดสต็อก (stock เป็น None) จึงไม่ถูกตัดยอด
-* **Fulfillment & Access Control:** มีระบบความปลอดภัยควบคุมลิงก์ดาวน์โหลด โดยลิงก์จะถูก **ล็อก (Locked)** ในสถานะ Pending และจะปลดล็อกให้เข้าถึงไฟล์ได้เฉพาะเมื่อคำสั่งซื้อเป็น **Confirmed** เท่านั้น
+* **Zero Physical Stock:** สินค้าประเภทนี้ไม่มีวันหมดสต็อก (`stock` เป็น `None`) จึงไม่ถูกตัดยอด
+* **Fulfillment & Access Control:** มีระบบความปลอดภัยควบคุมลิงก์ดาวน์โหลด โดยลิงก์จะถูก **ล็อก (Locked)** ในสถานะ `Pending` และจะปลดล็อกให้เข้าถึงไฟล์ได้เฉพาะเมื่อคำสั่งซื้อเป็น **Confirmed** เท่านั้น
 
 ---
 
@@ -78,19 +120,19 @@ otifiers.py), Separation of Concerns | อธิบายหลักการ�
 
 ระบบมีชุดทดสอบอัตโนมัติครอบคลุม 6 Test Cases สำคัญตามเกณฑ์วิศวกรรมซอฟต์แวร์:
 
-`ash
+```bash
 # ติดตั้ง pytest (หากยังไม่ได้ติดตั้ง)
 pip install pytest
 
 # รันชุดทดสอบพร้อมรายงานผลแบบละเอียด
 pytest tests/ -v
-`
+```
 
 ### ผลการทดสอบ (Test Results: 100% Passed):
-`	ext
+```text
 ============================= test session starts =============================
 platform win32 -- Python 3.12.3, pytest-9.1.1, pluggy-1.6.0
-rootdir: D:\learnCode	eam-13-inventory
+rootdir: team-13-inventory
 plugins: anyio-4.13.0
 collected 6 items
 
@@ -102,19 +144,19 @@ tests/test_inventory.py::test_digital_product_download_unlocked_when_confirmed P
 tests/test_inventory.py::test_low_stock_notification PASSED              [100%]
 
 ============================== 6 passed in 0.02s ==============================
-`
+```
 
 ---
 
 ## 📁 โครงสร้างไดเรกทอรีของโครงงาน (Project Structure)
 
-`
+```text
 team-13-inventory/
 ├── .github/
 │   └── workflows/
 │       └── ci.yml                     # ระบบ CI/CD ทดสอบโค้ดอัตโนมัติบน GitHub Actions
 ├── diagrams/                          # แผนภาพการออกแบบระบบ
-│   ├── class.md                       # UML Class Diagram (Mermaid)
+│   ├── class.md                       # UML Class Diagram (Mermaid & PlantUML)
 │   └── sequence.md                    # Sequence Diagram
 ├── docs/                              # เอกสารคู่มือและการออกแบบ
 │   ├── images/                        # ไฟล์รูปภาพประกอบ
@@ -135,18 +177,10 @@ team-13-inventory/
 │   └── inventory.py                   # Inventory Controller
 ├── tests/                             # ชุดทดสอบอัตโนมัติ
 │   └── test_inventory.py              # Automated Unit Tests (6 Cases)
-├── STEP_01_ภาพรวมโครงการและสถาปัตยกรรม_PROJECT.md
-├── STEP_02_ข้อกำหนดความต้องการระบบ_SRS.md
-├── STEP_03_การออกแบบคลาสไดอะแกรม_CLASS_DIAGRAM.md
-├── STEP_04_โครงสร้างโค้ดระบบ_SRC_CODE.md
-├── STEP_05_การทดสอบอัตโนมัติ_AUTOMATED_TESTS.md
-├── STEP_06_การออกแบบUXและการเข้าถึง_UX_ACCESSIBILITY.md
-├── STEP_07_บันทึกการใช้AIและรีวิวระบบ_AI_LOG_REVIEW.md
-├── STEP_08_สรุปผลการทำงานเป็นทีมและสปรินต์_RETRO_SPRINT.md
 ├── .ai-rules.md                       # ข้อกำหนดการควบคุมการใช้ AI ในทีม
-├── .gitignore                         # กำหนดไฟล์ที่ไม่ติดตามใน Git
+├── .gitignore                         # กำหนดไฟล์ที่ไม่ติดตามใน Git (รวมไฟล์ study guide ในเครื่อง)
 └── README.md                          # เอกสารภาพรวมหลัก (หน้านี้)
-`
+```
 
 ---
 
@@ -154,7 +188,7 @@ team-13-inventory/
 * **นายกานต์นิธิ ยะโส (รหัสนักศึกษา 67332110223-9)**
   * **Role:** Scrum Master / Backend & Database Developer
   * **Responsibilities:** ออกแบบโครงสร้างระบบ, พัฒนา Core Inventory Logic, เขียน Automated Test Suites, ดูแล CI/CD และเอกสารวิศวกรรมซอฟต์แวร์
-* ดูรายละเอียดสมาชิก กฎระเบียบทีม และข้อตกลงการทำงานได้ที่ [TEAM_CHARTER.md](docs/team/TEAM_CHARTER.md)
+* ดูรายละเอียดสมาชิก กฎระเบียบทีม และข้อตกลงการทำงานได้ที่ [docs/team/TEAM_CHARTER.md](docs/team/TEAM_CHARTER.md)
 
 ---
 *จัดทำขึ้นสำหรับการศึกษาและส่งผลงานในรายวิชาวิศวกรรมซอฟต์แวร์ (Software Engineering) ปีการศึกษา 2026*

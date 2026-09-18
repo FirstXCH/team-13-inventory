@@ -1,9 +1,11 @@
-__pycache__/
+﻿__pycache__/
 *.py[cod]
 *.class
 .pytest_cache/
 .env
 
 # Presentation Scripts (Local only)
-*���ٴ*
+*บทพูด*
 
+# Study Guide & Preparation Files (Local only)
+STEP_*.md
