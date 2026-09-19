@@ -81,8 +81,8 @@ classDiagram
         +can_access_download(order_status: str) bool
     }
 
-    Product <|-- PhysicalProduct : สืบทอด (Physical Goods: ห้ามขายเกินสต็อก / แจ้งเตือน Low Stock)
-    Product <|-- DigitalProduct : สืบทอด (Digital Goods: สินค้าดิจิทัล / ล็อกสิทธิ์จนกว่าจะ Confirm)
+    Product <|-- PhysicalProduct : สืบทอด (Physical Goods - ห้ามขายเกินสต็อก / แจ้งเตือน Low Stock)
+    Product <|-- DigitalProduct : สืบทอด (Digital Goods - สินค้าดิจิทัล / ล็อกสิทธิ์จนกว่าจะ Confirm)
 ```
 
 ```text
