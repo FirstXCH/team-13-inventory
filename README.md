@@ -1,4 +1,4 @@
-﻿# 📦 Smart Inventory & E-Book Management System (Team 13)
+# 📦 Smart Inventory & E-Book Management System (Team 13)
 
 [![SWE Inventory CI](https://github.com/FirstXCH/team-13-inventory/actions/workflows/ci.yml/badge.svg)](https://github.com/FirstXCH/team-13-inventory/actions)
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
@@ -86,23 +86,34 @@ classDiagram
 ```
 
 ```text
-                      +-------------------+
-                      |   Base Product    |
-                      |  (Abstract Class) |
-                      +-------------------+
-                                |
-               +----------------+----------------+
-               |                                 |
-      +-------------------+             +-------------------+
-      |  PhysicalProduct  |             |   DigitalProduct  |
-      +-------------------+             +-------------------+
-      | - stock: int      |             | - download_url    |
-      | - threshold: int  |             | - access_status   |
-      +-------------------+             +-------------------+
-      | * ตัดสต็อกเมื่อขาย |             | * ไม่ตัดสต็อก     |
-      | * ตรวจสอบ LowStock|             | * ล็อกลิงก์จนกว่า |
-      | * ห้ามขายเกินสต็อก |             |   จะชำระเงินจริง  |
-      +-------------------+             +-------------------+
+                      ┌────────────────────────────────────┐
+                      │            <<Abstract>>            │
+                      │              Product               │
+                      ├────────────────────────────────────┤
+                      │ + id: str                          │
+                      │ + name: str                        │
+                      │ + price: float                     │
+                      │ + category: str                    │
+                      │ + is_active: bool = True           │
+                      └────────────────────────────────────┘
+                                         ▲
+                                         │ (Inheritance)
+                   ┌─────────────────────┴─────────────────────┐
+                   │                                           │
+┌─────────────────────────────────────┐     ┌─────────────────────────────────────┐
+│           PhysicalProduct           │     │           DigitalProduct            │
+├─────────────────────────────────────┤     ├─────────────────────────────────────┤
+│ + stock: int                        │     │ + file_url: str                     │
+│ + threshold: int = 5                │     │ + file_format: str = "PDF"          │
+├─────────────────────────────────────┤     ├─────────────────────────────────────┤
+│ + deduct_stock(qty: int): bool      │     │ + can_access_download(              │
+│ + is_low_stock(): bool              │     │     order_status: str): bool        │
+├─────────────────────────────────────┤     ├─────────────────────────────────────┤
+│ [Business Rules / กฎธุรกิจ]           │     │ [Business Rules / กฎธุรกิจ]           │
+│ • ตัดสต็อกตามยอดสั่งซื้อ                  │     │ • ไม่ตัดสต็อก (Zero Stock)             │
+│ • ห้ามขายเกินสต็อก (ValueError)        │     │ • ล็อกสิทธิ์ดาวน์โหลดจนกว่า               │
+│ • เตือนเมื่อ stock <= threshold        │     │   order_status = Confirmed/Paid     │
+└─────────────────────────────────────┘     └─────────────────────────────────────┘
 ```
 
 ### 1. สินค้าทางกายภาพ (Physical Goods: หนังสือรูปเล่ม)
