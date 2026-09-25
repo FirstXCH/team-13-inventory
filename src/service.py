@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
-from typing import Dict, List, Union
-from src.models import Product, PhysicalProduct, DigitalProduct
+from src.models import DigitalProduct, PhysicalProduct
 from src.notifiers import Notifier
+
 
 class InventoryService:
     """ระบบจัดการคลังสินค้าและแคตตาล็อก"""
+
     def __init__(self):
-        self.products: Dict[str, Union[PhysicalProduct, DigitalProduct]] = {}
-        self._observers: List[Notifier] = []
+        self.products: dict[str, PhysicalProduct | DigitalProduct] = {}
+        self._observers: list[Notifier] = []
 
     def add_observer(self, observer: Notifier) -> None:
         """ลงทะเบียนผู้รับการแจ้งเตือน"""
@@ -18,16 +18,21 @@ class InventoryService:
         for observer in self._observers:
             observer.send(message)
 
-    def add_product(self, product: Union[PhysicalProduct, DigitalProduct]) -> None:
+    def add_product(self, product: PhysicalProduct | DigitalProduct) -> None:
         """เพิ่มสินค้าเข้าสู่ระบบ"""
         self.products[product.id] = product
 
-    def sell_product(self, product_id: str, quantity: int, order_status: str = "Pending") -> dict:
+    def sell_product(
+        self, product_id: str, quantity: int, order_status: str = "Pending"
+    ) -> dict:
         """
         ประมวลผลการขายตามชนิดสินค้า (กฎข้อบังคับ 11 ก.ย.):
         1. สินค้าที่จับต้องได้ (Physical): ต้องตัดสต็อก และห้ามขายเกินยอดคงเหลือ
         2. สินค้าดิจิทัล (Digital): ไม่มีการตัดสต็อก ขายได้ไม่จำกัด แต่ตรวจสอบสิทธิ์ดาวน์โหลด
         """
+        if quantity <= 0:
+            raise ValueError("จำนวนสินค้าที่ขายต้องมากกว่า 0")
+
         if product_id not in self.products:
             raise KeyError(f"ไม่พบสินค้ารหัส {product_id} ในระบบ")
 
@@ -39,13 +44,17 @@ class InventoryService:
         if isinstance(product, PhysicalProduct):
             product.deduct_stock(quantity)
             if product.is_low_stock():
-                self._notify(f"เตือน: สินค้า {product.name} คงเหลือ {product.stock} ชิ้น (ต่ำกว่าเกณฑ์ {product.threshold})")
+                msg = (
+                    f"เตือน: สินค้า {product.name} คงเหลือ {product.stock} ชิ้น "
+                    f"(ต่ำกว่าเกณฑ์ {product.threshold})"
+                )
+                self._notify(msg)
             return {
                 "product_id": product.id,
                 "type": "Physical",
                 "sold_quantity": quantity,
                 "remaining_stock": product.stock,
-                "download_link": None
+                "download_link": None,
             }
 
         elif isinstance(product, DigitalProduct):
@@ -57,8 +66,22 @@ class InventoryService:
                 "sold_quantity": quantity,
                 "remaining_stock": "Unlimited (No Stock Deduction)",
                 "download_unlocked": is_unlocked,
-                "download_url": download_url
+                "download_url": download_url,
             }
+
+    def low_stock_items(self, threshold: int) -> list[str]:
+        """
+        โจทย์ Lab 5 (TDD ขั้นที่ 2-3):
+        คืนรายชื่อสินค้าที่มีของเหลือน้อยกว่าหรือเท่ากับ threshold โดยเรียงตามชื่อ
+        """
+        if threshold < 0:
+            return []
+        matching_names = [
+            p.name
+            for p in self.products.values()
+            if isinstance(p, PhysicalProduct) and p.stock <= threshold
+        ]
+        return sorted(matching_names)
 
     def get_stock_value(self) -> float:
         """คำนวณมูลค่ารวมของสินค้าที่มีสต็อกในคลัง"""
@@ -67,3 +90,7 @@ class InventoryService:
             if isinstance(p, PhysicalProduct):
                 total += p.price * p.stock
         return total
+
+
+# Alias สำหรับความเข้ากันได้กับโจทย์ Lab 5
+Inventory = InventoryService
