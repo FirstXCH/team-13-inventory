@@ -1,0 +1,11 @@
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.coverage.run]
+omit = [
+    "src/inventory.py",
+    "src/inventory_no_context.py"
+]

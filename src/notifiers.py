@@ -1,27 +1,23 @@
 from typing import Protocol
 
+
 class Notifier(Protocol):
-    """Protocol (Interface) สำหรับการแจ้งเตือน"""
+    """Interface กลางสำหรับผู้ส่งการแจ้งเตือน (DIP & OCP)"""
     def send(self, message: str) -> None:
         ...
 
 class EmailNotifier:
-    """แจ้งเตือนผ่านอีเมล"""
+    """ผู้ส่งการแจ้งเตือนทาง Email"""
+    def __init__(self, target_email: str = "manager@store.com"):
+        self.target_email = target_email
+
     def send(self, message: str) -> None:
-        print(f"[Email] {message}")
+        print(f"[Email to {self.target_email}] {message}")
 
 class SMSNotifier:
-    """แจ้งเตือนผ่าน SMS"""
-    def send(self, message: str) -> None:
-        print(f"[SMS] {message}")
+    """ผู้ส่งการแจ้งเตือนทาง SMS"""
+    def __init__(self, phone_number: str = "0812345678"):
+        self.phone_number = phone_number
 
-class NotifierFactory:
-    """Factory สำหรับสร้าง Notifier ตามช่องทางที่ระบุ (แก้การละเมิด OCP)"""
-    @staticmethod
-    def create(channel: str) -> Notifier:
-        if channel.lower() == "email":
-            return EmailNotifier()
-        elif channel.lower() == "sms":
-            return SMSNotifier()
-        else:
-            raise ValueError(f"ไม่รองรับช่องทางการแจ้งเตือน: {channel}")
+    def send(self, message: str) -> None:
+        print(f"[SMS to {self.phone_number}] {message}")

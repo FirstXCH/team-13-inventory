@@ -9,3 +9,7 @@
 
 # Study Guide & Preparation Files (Local only)
 STEP_*.md
+
+# Coverage files
+.coverage
+htmlcov/

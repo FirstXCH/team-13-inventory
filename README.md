@@ -2,7 +2,9 @@
 
 [![SWE Inventory CI](https://github.com/FirstXCH/team-13-inventory/actions/workflows/ci.yml/badge.svg)](https://github.com/FirstXCH/team-13-inventory/actions)
 [![Python Version](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
-[![Tests](https://img.shields.io/badge/tests-6%20passed%20(100%25)-brightgreen.svg)](tests/)
+[![Tests](https://img.shields.io/badge/tests-34%20passed%20(100%25)-brightgreen.svg)](tests/)
+[![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](coverage-note.md)
+[![Ruff](https://img.shields.io/badge/code%20style-ruff-000000.svg)](pyproject.toml)
 [![Architecture](https://img.shields.io/badge/architecture-Clean%20%2F%203--Tier-orange.svg)](src/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
@@ -33,6 +35,9 @@
 | **4. Automated Test & CI (4 คะแนน)** | [`tests/test_inventory.py`](tests/test_inventory.py)<br>[`.github/workflows/ci.yml`](.github/workflows/ci.yml) | Unit Test รันผ่านจริง 6 เคส (100%) และ GitHub Actions CI รันบน Pull Request |
 | **5. บันทึก AI & จริยธรรม (3 คะแนน)** | [`docs/team/AI_ITERATION_LOG.md`](docs/team/AI_ITERATION_LOG.md) | บันทึก Prompt, จุดที่ปฏิเสธข้อเสนอ AI พร้อมเหตุผล, และประเด็น PDPA |
 | **6. โค้ดระบบหลัก** | [`src/models.py`](src/models.py)<br>[`src/service.py`](src/service.py)<br>[`src/notifiers.py`](src/notifiers.py) | รองรับสินค้า 2 ชนิด (Physical ตัดสต็อก vs Digital ล็อกดาวน์โหลด) ตามหลัก Clean Architecture |
+| **7. เอกสารสรุปโครงงาน (Master)** | [`PROJECT.md`](PROJECT.md) | เอกสารสรุปส่งโครงงาน 20 คะแนน แผนผังนำทาง และลิงก์คลิปสาธิตระบบ |
+| **8. งาน Lab 4 (UX, Review, Debug)** | [`lab04-ai-coding-ux/`](lab04-ai-coding-ux/) | โฟลเดอร์งาน Lab 4 ครบทุกข้อ: Wireframe, Persona, Code Review, Debug Log, Discount |
+| **9. งาน Lab 5 (TDD, Legacy Refactor, CI)** | [`test-gap.md`](test-gap.md)<br>[`coverage-note.md`](coverage-note.md)<br>[`smells.md`](smells.md)<br>[`ethics.md`](ethics.md) | โค้ด Legacy `calc()`, Characterization Tests, โค้ด Refactor `src/pricing.py`, และ CI Workflow |
 
 <details>
 <summary><b>📖 คู่มือการเตรียมตัวสอบและทบทวนเนื้อหาแบบ Step-by-Step (Local Study Guide)</b> <i>[คลิกเพื่อขยาย]</i></summary>
