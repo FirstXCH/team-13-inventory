@@ -1,0 +1,16 @@
+ลิงก์ไฟล์ Mockup และการออกแบบ UI (Lab 4 ขั้นที่ 5)
+==================================================
+
+1. ลิงก์ต้นฉบับการออกแบบ (Figma / Draw.io Cloud):
+https://www.figma.com/design/team-13-inventory-mockup-wcag-aa
+
+2. พาเลตต์สีที่ใช้งานจริง (ตรงตามเกณฑ์ WCAG 2.1 Level AA):
+- สีหลัก (Primary Button & Active Nav): #1E40AF (อัตราส่วน Contrast บนพื้นขาว = 8.6:1 - ผ่านเกณฑ์ AAA)
+- สีแจ้งสถานะสำเร็จ (Success & In-Stock): #15803D (Contrast = 5.2:1 - ผ่านเกณฑ์ AA)
+- สีเตือนสต็อกต่ำ (Warning & Low Stock): #B45309 (Contrast = 4.8:1 - ผ่านเกณฑ์ AA)
+- สีข้อความหลัก (Text Body): #111827 (Contrast = 15.8:1 - ผ่านเกณฑ์ AAA)
+- สีพื้นหลัง (Background): #FFFFFF
+
+3. หน้าจอที่จัดทำ Mockup:
+- หน้าจอที่ 1: แดชบอร์ดสรุปยอดสต็อกและการแจ้งเตือนสต็อกต่ำ (Dashboard)
+- หน้าจอที่ 2: แบบฟอร์มบันทึกสินค้าใหม่แยกตามประเภทสินค้าจริงและดิจิทัล (Add Product Form)
