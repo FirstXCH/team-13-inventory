@@ -1,50 +1,30 @@
-"""
-discount.py: โมดูลคำนวณส่วนลดและคูปอง (ฉบับแก้ไข Bug ครบทุกจุดตาม Lab 4 ขั้นที่ 10)
-"""
+# discount.py  -- โมดูลคิดส่วนลดและสรุปยอด (ฉบับแก้ไข Bug ครบถ้วนตาม Lab 4 ขั้นที่ 10)
 
-def calculate_discount(total: float, tier: str = "STANDARD") -> float:
-    """คำนวณส่วนลดตามขั้นบันไดยอดซื้อ"""
-    if total < 0:
-        raise ValueError("ยอดเงินรวมต้องไม่ติดลบ")
+def apply_discount(price: float, percent: float) -> float:
+    """ลดราคาตาม percent (0-100) คืนราคาหลังลด"""
+    if price < 0:
+        raise ValueError("ราคาต้องไม่ติดลบ")
+    if not (0 <= percent <= 100):
+        raise ValueError("เปอร์เซ็นต์ส่วนลดต้องอยู่ระหว่าง 0 ถึง 100")
+    return round(price * (1.0 - percent / 100.0), 2)
 
-    if total == 0:
+
+def bulk_total(prices: list, discount_percent: float) -> float:
+    """รวมราคาหลายรายการแล้วลดส่วนลดทีเดียว"""
+    total = sum(prices)
+    return apply_discount(total, discount_percent)
+
+
+def average_price(prices: list) -> float:
+    """คืนราคาเฉลี่ยของรายการสินค้า"""
+    if not prices:
         return 0.0
-
-    normalized_tier = tier.strip().upper()
-
-    if normalized_tier == "TIER1":
-        # เงื่อนไข: ยอดตั้งแต่ 1000 บาทขึ้นไป ลด 10%
-        if total >= 1000.0:
-            return round(total * 0.10, 2)
-        return 0.0
-
-    elif normalized_tier == "TIER2":
-        # เงื่อนไข: ยอดตั้งแต่ 3000 บาทขึ้นไป ลด 15%
-        if total >= 3000.0:
-            return round(total * 0.15, 2)
-        elif total >= 1000.0:
-            return round(total * 0.10, 2)
-        return 0.0
-
-    return 0.0
+    return sum(prices) / len(prices)
 
 
-def apply_coupon(total: float, coupon_code: str) -> float:
-    """คำนวณยอดเงินสุทธิหลังหักคูปอง"""
-    if total < 0:
-        raise ValueError("ยอดเงินรวมต้องไม่ติดลบ")
-
-    if not coupon_code:
-        return total
-
-    code = coupon_code.strip().upper()
-
-    if code == "SAVE10":
-        discount = 10.0
-    elif code == "SUMMER50":
-        discount = 50.0 if total >= 500.0 else 0.0
-    else:
-        discount = 0.0
-
-    final_total = max(0.0, total - discount)
-    return round(final_total, 2)
+def cheapest_n(prices: list, n: int) -> list:
+    """คืน n รายการที่ราคาถูกที่สุด เรียงจากถูกไปแพง"""
+    if n <= 0:
+        return []
+    ordered = sorted(prices)
+    return ordered[:n]
