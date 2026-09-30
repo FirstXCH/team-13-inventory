@@ -1,5 +1,6 @@
 [tool.ruff]
 line-length = 100
+exclude = ["pricing_legacy.py"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP"]

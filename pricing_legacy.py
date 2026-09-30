@@ -1,37 +1,56 @@
-# pricing_legacy.py: โมดูลคิดราคาและส่วนลดฉบับเร่งรีบ (Legacy Code มี Code Smells ตามโจทย์ Lab 5 ขั้นที่ 6)
+# pricing_legacy.py
+# โมดูลคำนวณราคาและส่วนลดของระบบ Inventory
+# เขียนเร่งรีบ ไม่มี test ไม่มีใครกล้าแตะ
 
-def calc(p, q, c_type="NORMAL", coupon="", is_wknd=False):
-    # p: unit price, q: quantity, c_type: customer type
-    if q <= 0 or p < 0:
-        return 0.0
+import datetime
 
-    tot = p * q
-    d = 0.0
+TAX = 0.07
+member_points = {}
+LOG = []
 
-    # smell: magic numbers and nested conditions
-    if c_type == "VIP":
-        if tot > 1000:
-            d = d + (tot * 0.15)
-        else:
-            d = d + (tot * 0.10)
-    elif c_type == "MEMBER":
-        if tot > 500:
-            d = d + (tot * 0.05)
-    else:
-        d = 0.0
 
-    if coupon == "SAVE10":
-        d = d + 10.0
-    elif coupon == "SUMMER50":
-        if tot >= 500:
-            d = d + 50.0
-
-    if is_wknd:
-        # weekend special discount 5% on subtotal
-        d = d + (tot * 0.05)
-
-    final = tot - d
-    if final < 0:
-        final = 0.0
-
-    return round(final, 2)
+def calc(items, member=None, coupon=None, today=None):
+    # items = list ของ tuple (ชื่อ, จำนวน, ราคาต่อหน่วย)
+    # member = ชื่อสมาชิก (ถ้ามี)
+    # coupon = รหัสคูปอง (ถ้ามี)
+    # today = วันที่ (ถ้าไม่ใส่ใช้วันนี้)
+    t = 0
+    for i in items:
+        # คำนวณราคารวมก่อนส่วนลด
+        if i[1] <= 0:
+            continue
+        sub = i[1] * i[2]
+        # ลดราคาสินค้าซื้อเยอะ
+        if i[1] >= 100:
+            sub = sub * 0.9
+        elif i[1] >= 50:
+            sub = sub * 0.95
+        t = t + sub
+    # ส่วนลดสมาชิก
+    if member != None:
+        if member not in member_points:
+            member_points[member] = 0
+        # สมาชิกลด 5%
+        t = t * 0.95
+        # สะสมแต้ม 1 แต้มต่อ 100 บาท
+        member_points[member] = member_points[member] + int(t / 100)
+    # คูปอง
+    if coupon != None:
+        if coupon == "SAVE50":
+            t = t - 50
+        elif coupon == "HALF":
+            t = t * 0.5
+        elif coupon == "NEWYEAR":
+            # ใช้ได้เฉพาะเดือนมกราคม
+            if today == None:
+                today = datetime.date.today()
+            if today.month == 1:
+                t = t * 0.8
+    if t < 0:
+        t = 0
+    # บวกภาษี
+    t = t + t * TAX
+    # ปัดเศษ
+    t = round(t, 2)
+    LOG.append((member, t))
+    return t
